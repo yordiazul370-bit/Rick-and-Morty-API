@@ -5,8 +5,8 @@ export default function About() {
       <div style={{ border: '1px solid #444', padding: '20px', borderRadius: '10px', backgroundColor: '#272b33', color: '#fff' }}>
         <h2>Proyecto: Rick & Morty App (APK)</h2>
         <p><strong>Materia:</strong> Programación Móvil</p>
-        <p><strong>Estudiante:</strong> [Tu Nombre Completo Aquí]</p>
-        <p><strong>Código / ID:</strong> [Tu Código Estudiantil]</p>
+        <p><strong>Estudiante:</strong>Juancho</p>
+        <p><strong>Código / ID:</strong>20220001</p>
         <p><strong>Versión:</strong> 1.0.0</p>
         <hr style={{ margin: '20px 0', borderColor: '#444' }} />
         <p>

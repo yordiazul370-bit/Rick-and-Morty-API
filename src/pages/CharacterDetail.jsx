@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function CharacterDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [character, setCharacter] = useState(null);
 
   useEffect(() => {
@@ -11,22 +12,21 @@ export default function CharacterDetail() {
       .then((data) => setCharacter(data));
   }, [id]);
 
-  if (!character) return <h2>Cargando personaje...</h2>;
+  if (!character) return <p style={{ textAlign: 'center', color: '#00ff97', marginTop: '40px' }}>Cargando expediente...</p>;
 
-  // --- FUNCIÓN DE COMPARTIR (OBJETO COMPARTIDO) ---
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
         title: character.name,
-        text: `¡Mira a ${character.name} de Rick y Morty!`,
+        text: `¡Mira este personaje de Rick & Morty: ${character.name}!`,
         url: window.location.href,
       });
     } else {
-      alert(`Enlace copiado: ${window.location.href}`);
+      navigator.clipboard.writeText(window.location.href);
+      alert('¡Enlace copiado al portapapeles!');
     }
   };
 
-  // --- FUNCIÓN DE FAVORITOS (LOCALSTORAGE) ---
   const handleSaveFavorite = () => {
     const saved = JSON.parse(localStorage.getItem('favorites') || '[]');
     const exists = saved.some((item) => item.id === character.id);
@@ -34,29 +34,80 @@ export default function CharacterDetail() {
     if (!exists) {
       saved.push(character);
       localStorage.setItem('favorites', JSON.stringify(saved));
-      alert(`${character.name} guardado en Favoritos!`);
+      alert('⭐ Agregado a favoritos');
     } else {
-      alert('Ya está en tus favoritos.');
+      alert('Este personaje ya está en tus favoritos.');
     }
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '500px', margin: 'auto' }}>
-      <img src={character.image} alt={character.name} style={{ width: '100%', borderRadius: '10px' }} />
-      <h2>{character.name}</h2>
-      <p><strong>Especie:</strong> {character.species}</p>
-      <p><strong>Género:</strong> {character.gender}</p>
-      <p><strong>Origen:</strong> {character.origin?.name}</p>
-      <p><strong>Ubicación actual:</strong> {character.location?.name}</p>
+    <div className="fade-in" style={{ padding: '16px', maxWidth: '500px', margin: '0 auto' }}>
+      <button onClick={() => navigate(-1)} style={styles.backBtn}>
+        ← Volver
+      </button>
 
-      <div style={{ display: 'flex', gap: '10px', marginTop: '15px' }}>
-        <button onClick={handleSaveFavorite} style={{ padding: '10px', cursor: 'pointer' }}>
-          ⭐ Agregar a Favoritos
-        </button>
-        <button onClick={handleShare} style={{ padding: '10px', cursor: 'pointer' }}>
-          🔗 Compartir
-        </button>
+      <div style={styles.detailCard}>
+        <img src={character.image} alt={character.name} style={styles.avatar} />
+        <h2 style={{ fontSize: '24px', color: '#fff', textAlign: 'center', marginTop: '12px' }}>{character.name}</h2>
+        
+        <div style={styles.infoGroup}>
+          <div style={styles.infoRow}><span>Especie:</span> <strong>{character.species}</strong></div>
+          <div style={styles.infoRow}><span>Género:</span> <strong>{character.gender}</strong></div>
+          <div style={styles.infoRow}><span>Origen:</span> <strong>{character.origin?.name}</strong></div>
+          <div style={styles.infoRow}><span>Ubicación:</span> <strong>{character.location?.name}</strong></div>
+          <div style={styles.infoRow}><span>Apariciones:</span> <strong>{character.episode?.length} episodios</strong></div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
+          <button onClick={handleSaveFavorite} className="btn-neon" style={{ flex: 1 }}>
+            ⭐ Favorito
+          </button>
+          <button onClick={handleShare} className="btn-neon" style={{ flex: 1, background: '#1e293b', color: '#00ff97', border: '1px solid #00ff97' }}>
+            🔗 Compartir
+          </button>
+        </div>
       </div>
     </div>
   );
 }
+
+const styles = {
+  backBtn: {
+    background: 'none',
+    border: 'none',
+    color: '#00ff97',
+    fontSize: '16px',
+    cursor: 'pointer',
+    marginBottom: '16px',
+    fontWeight: 'bold',
+  },
+  detailCard: {
+    backgroundColor: '#161f30',
+    borderRadius: '20px',
+    padding: '20px',
+    border: '1px solid #2a384f',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+  },
+  avatar: {
+    width: '100%',
+    maxHeight: '280px',
+    objectFit: 'cover',
+    borderRadius: '16px',
+    border: '2px solid #00ff97',
+  },
+  infoGroup: {
+    marginTop: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+  },
+  infoRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '10px',
+    backgroundColor: '#0b0f19',
+    borderRadius: '8px',
+    fontSize: '14px',
+    color: '#94a3b8',
+  },
+};
