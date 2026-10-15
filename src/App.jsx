@@ -1,36 +1,28 @@
-import { BrowserRouter as Router, Route, Routes, Navigate,Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Characters from './pages/Characters';
+import CharacterDetail from './pages/CharacterDetail';
 
-import Inicio from "./components/inicio";
-import Favoritos from "./components/favoritos";
-import Info from "./components/info";
-import Coleccion from "./components/coleccion"
-import Usuario from "./components/usuario"
-import Pokemon from "./components/pokemon"
-import './App.css'
+// Componentes rápidos para completar las 5 pestañas
+const Locations = () => <div style={{ padding: '20px' }}><h1>Ubicaciones</h1><p>Próximamente...</p></div>;
+const Episodes = () => <div style={{ padding: '20px' }}><h1>Episodios</h1><p>Próximamente...</p></div>;
+const Favorites = () => <div style={{ padding: '20px' }}><h1>Mis Favoritos</h1><p>Lee desde localStorage...</p></div>;
+const Minigame = () => <div style={{ padding: '20px' }}><h1>Portal Multiversal</h1><p>Pestaña original...</p></div>;
+const About = () => <div style={{ padding: '20px' }}><h1>Acerca de</h1><p>Desarrollado por: Tu Nombre</p></div>;
 
-function App() {
-
+export default function App() {
   return (
-    <>
-      <Router>
-        <nav className='c-menu'>
-          <Link to="/">Inicio</Link>
-          <Link to="/coleccion">Coleccion</Link>
-          <Link to="/favoritos">Favoritos</Link>
-          <Link to="/info">Info</Link>
-          <Link to="/usuario">Usuario</Link>
-        </nav>
-        <Routes>
-          <Route path="/" element={<Inicio />} />
-          <Route path="/favoritos" element={<Favoritos />} />
-          <Route path="/coleccion" element={<Coleccion />} />
-          <Route path="/info" element={<Info />} />
-          <Route path="/usuario" element={<Usuario />} />
-          <Route path="/pokemon/:name" element={<Pokemon />} />
-        </Routes>
-      </Router>
-    </>
-  )
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Characters />} />
+        <Route path="/character/:id" element={<CharacterDetail />} />
+        <Route path="/locations" element={<Locations />} />
+        <Route path="/episodes" element={<Episodes />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/minigame" element={<Minigame />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
-
-export default App
