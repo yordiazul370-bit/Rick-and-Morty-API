@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import Navbar from './components/Navbar';
 import Characters from './pages/Characters';
 import CharacterDetail from './pages/CharacterDetail';
@@ -10,9 +10,15 @@ import About from './pages/About';
 const Locations = () => <div style={{ padding: '20px' }}><h1>Ubicaciones</h1><p>Próximamente...</p></div>;
 const Episodes = () => <div style={{ padding: '20px' }}><h1>Episodios</h1><p>Próximamente...</p></div>;
 
+// Cambia esto:
+// import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+// Por esto otro:
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+
 export default function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Navbar />
       <Routes>
         <Route path="/" element={<Characters />} />
@@ -23,6 +29,6 @@ export default function App() {
         <Route path="/minigame" element={<Minigame />} />
         <Route path="/about" element={<About />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
