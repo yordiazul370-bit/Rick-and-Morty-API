@@ -2,13 +2,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Characters from './pages/Characters';
 import CharacterDetail from './pages/CharacterDetail';
+import Favorites from './pages/Favorites';
+import Minigame from './pages/Minigame';
+import About from './pages/About';
 
-// Componentes rápidos para completar las 5 pestañas
+// Componentes estáticos adicionales para completar las 5 pestañas
 const Locations = () => <div style={{ padding: '20px' }}><h1>Ubicaciones</h1><p>Próximamente...</p></div>;
 const Episodes = () => <div style={{ padding: '20px' }}><h1>Episodios</h1><p>Próximamente...</p></div>;
-const Favorites = () => <div style={{ padding: '20px' }}><h1>Mis Favoritos</h1><p>Lee desde localStorage...</p></div>;
-const Minigame = () => <div style={{ padding: '20px' }}><h1>Portal Multiversal</h1><p>Pestaña original...</p></div>;
-const About = () => <div style={{ padding: '20px' }}><h1>Acerca de</h1><p>Desarrollado por: Tu Nombre</p></div>;
 
 export default function App() {
   return (

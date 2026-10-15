@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  --bg-dark: #0b0f19;
+  --card-bg: #161f30;
+  --portal-green: #00ff97;
+  --portal-glow: rgba(0, 255, 151, 0.4);
+  --cyan-accent: #00d2ff;
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
+  --border-color: #2a384f;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  padding-bottom: 80px; /* Espacio para la barra de navegación inferior móvil */
+  overflow-x: hidden;
+}
+
+/* Animación de entrada suave */
+.fade-in {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Botones con brillo neón */
+.btn-neon {
+  background: linear-gradient(135deg, #00ff97 0%, #00b894 100%);
+  color: #0b0f19;
+  font-weight: 700;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 15px var(--portal-glow);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-neon:active {
+  transform: scale(0.96);
+  box-shadow: 0 0 5px var(--portal-glow);
+}
